@@ -1,22 +1,18 @@
 package main
 
 import (
-	"bytes"
+	//"bytes"
 	"fmt"
 	"os/exec"
 )
 
 func main() {
-	args := []string{"gobook.pdf"}
+	args := []string{"gobook2.pdf"}
 	cmd := exec.Command("exiftool", args...)
 
-	var outb, errb bytes.Buffer
-	cmd.Stdout = &outb
-	cmd.Stderr = &errb
-
-	err := cmd.Run()
+	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Println(&errb)
+		fmt.Println(err)
 	}
-	fmt.Println(&outb)
+	fmt.Printf("%s\n", stdoutStderr)
 }
